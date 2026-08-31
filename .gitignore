@@ -1,0 +1,16 @@
+# python
+venv/
+__pycache__/
+*.pyc
+
+# project data & artifacts
+data/*
+!data/.gitkeep
+weights/*.npz
+!weights/.gitkeep
+
+# os slop & editor stuff
+.DS_STORE
+Thumbs.db
+.vscode/
+.idea/
