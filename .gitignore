@@ -3,6 +3,8 @@ venv/
 __pycache__/
 *.pyc
 
+.pytest_cache/
+
 # project data & artifacts
 data/*
 !data/.gitkeep
@@ -12,5 +14,3 @@ weights/*.npz
 # os slop & editor stuff
 .DS_STORE
 Thumbs.db
-.vscode/
-.idea/
