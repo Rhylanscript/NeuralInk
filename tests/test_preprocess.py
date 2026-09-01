@@ -34,11 +34,11 @@ def array_to_data_url(arr: np.ndarray) -> str:
 
 
 def blank_canvas(size: int = 280) -> np.ndarray:
-    """All white canvas (matches an untouched HTML canvas before inversion)."""
-    return np.full((size, size), 255, dtype=np.uint8)
+    """All black canvas, matching the frontend"""
+    return np.zeros((size, size), dtype=np.uint8)
 
 
-def draw_square(canvas: np.ndarray, top: int, left: int, side: int, value: int = 0) -> np.ndarray:
+def draw_square(canvas: np.ndarray, top: int, left: int, side: int, value: int = 236) -> np.ndarray:
     """
     Draw a filled square of `value` onto a copy of `canvas`. Default value 0
     (black) simulates ink on a white canvas, pre inversion.
@@ -60,14 +60,14 @@ class TestDecodeBase64Image:
         assert image.size == (50, 50)
 
     def test_round_trip_pixel_values(self):
-        arr = draw_square(blank_canvas(50), top=10, left=10, side=5, value=0)
+        arr = draw_square(blank_canvas(50), top=10, left=10, side=5)
         data_url = array_to_data_url(arr)
 
         image = decode_base64_image(data_url)
         decoded = np.array(image)
 
-        assert decoded[12, 12] == 0
-        assert decoded[0, 0] == 255
+        assert decoded[12, 12] == 236
+        assert decoded[0, 0] == 0
 
     def test_handles_missing_data_url_prefix(self):
         arr = blank_canvas(20)
@@ -244,7 +244,7 @@ class TestPreprocessCanvasImageFullPipeline:
 
     def test_drawn_content_is_nonzero(self):
         arr = blank_canvas(280)
-        arr = draw_square(arr, top=100, left=100, side=80, value=0)
+        arr = draw_square(arr, top=100, left=100, side=80)
 
         data_url = array_to_data_url(arr)
         result = preprocess_canvas_image(data_url)
@@ -252,8 +252,8 @@ class TestPreprocessCanvasImageFullPipeline:
         assert result.sum() > 0
 
     def test_small_and_large_strokes_both_produce_valid_output(self):
-        small = draw_square(blank_canvas(280), top=140, left=140, side=5, value=0)
-        large = draw_square(blank_canvas(280), top=10, left=10, side=260, value=0)
+        small = draw_square(blank_canvas(280), top=140, left=140, side=5)
+        large = draw_square(blank_canvas(280), top=10, left=10, side=260)
 
         for arr in (small, large):
             data_url = array_to_data_url(arr)
