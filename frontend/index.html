@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NeuralInk - draw a digit</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="page">
+            <header class="page-header">
+                <h1>NeuralInk</h1>
+                <p class="tagline">A neural network built to read your hand.</p>
+            </header>
+
+            <main class="layout">
+                <section class="canvas-panel" aria-label="Drawing area">
+                    <div class="canvas-frame">
+                        <canvas id="draw-canvas" width="280" height="280" aria-label="Draw a digit here with your mouse or finger"></canvas>
+                    </div>
+                    <!-- <p class="canvas-note"></p> -->
+                    <div class="controls">
+                        <button id="clear-btn" type="button">Clear</button>
+                    </div>
+                </section>
+
+                <section class="result-panel" aria-label="Prediction">
+                    <div class="prediction-display">
+                        <span id="predicted-digit" class="predicted-digit">-</span>
+                        <p id="prediction-status" class="prediction-status">Draw a digit to see a prediction</p>
+                    </div>
+
+                    <ul class="probability-list" id="probability-list">
+                        <!-- rows injected by script.js, one per digit 0-9 -->
+                    </ul>
+                </section>
+            </main>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

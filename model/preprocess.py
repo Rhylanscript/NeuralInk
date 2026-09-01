@@ -11,7 +11,7 @@ import base64
 import io
 
 import numpy as np
-from PIL import Image, ImageOps
+from PIL import Image
 
 
 def decode_base64_image(data_url: str) -> Image.Image:
@@ -128,7 +128,6 @@ def preprocess_canvas_image(data_url: str) -> np.ndarray:
     for `NeuralNetwork.forward()`.
     """
     image = decode_base64_image(data_url)
-    image = ImageOps.invert(image) 
 
     image = crop_to_content(image)
     image = resize_to_20x20_box(image)

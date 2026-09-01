@@ -1,0 +1,242 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+    --bg-deep: #16211C;
+    --surface: #1E2C24;
+    --surface-raised: #24352B;
+    --chalk: #EDEDE3;
+    --chalk-dim: #8A9990;
+    --accent-yellow: #E8C468;
+    --accent-blue: #7FA8C9;
+    --border-soft: rgba(237, 237, 227, 0.12);
+
+    --font-display: 'Arial', serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-deep);
+    color: var(--chalk);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    /* overflow-y: hidden; */
+}
+
+.page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 48px 24px 64px;
+}
+
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+}
+
+.tagline {
+    font-size: 1rem;
+    color: var(--chalk-dim);
+    margin: 0;
+    max-width: 46ch;
+    line-height: 1.5;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+}
+
+@media (max-width: 760px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ---------- canvas panel ---------- */
+
+.canvas-panel {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.canvas-frame {
+    border-radius: 6px;
+    overflow: hidden;
+    line-height: 0;
+    border: 1px solid var(--border-soft);
+}
+
+#draw-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    background: #000;
+    cursor: crosshair;
+    touch-action: none;
+}
+
+.canvas-note {
+    font-size: 0.8rem;
+    color: var(--chalk-dim);
+    margin: 12px 2px 0;
+    line-height: 1.5;
+}
+
+.controls {
+    margin-top: 16px;
+    display: flex;
+    gap: 12px;
+}
+
+button {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 1px solid var(--border-soft);
+    background: var(--surface-raised);
+    color: var(--chalk);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+button:hover {
+    border-color: var(--accent-blue);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+}
+
+/* ---------- result panel ---------- */
+
+.result-panel {
+    background: var(--surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    padding: 28px 24px;
+}
+
+.prediction-display {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 24px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.predicted-digit {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 4.5rem;
+    line-height: 1;
+    color: var(--chalk-dim);
+    min-width: 1.4ch;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.predicted-digit.is-active {
+    color: var(--accent-yellow);
+    animation: pulse 0.35s ease;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+
+.prediction-status {
+    margin: 0;
+    color: var(--chalk-dim);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.probability-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.probability-row {
+    display: grid;
+    grid-template-columns: 1.2ch 1fr 5ch;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.probability-row .digit-label {
+    color: var(--chalk-dim);
+    text-align: right;
+}
+
+.probability-row.is-top .digit-label {
+    color: var(--accent-yellow);
+}
+
+.bar-track {
+    height: 8px;
+    background: rgba(237, 237, 227, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent-blue);
+    border-radius: 4px;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.probability-row.is-top .bar-fill {
+    background: var(--accent-yellow);
+}
+
+.probability-row .pct {
+    color: var(--chalk-dim);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.probability-row.is-top .pct {
+    color: var(--chalk);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .predicted-digit.is-active {
+        animation: none;
+    }
+    .bar-fill,
+    .predicted-digit {
+        transition: none;
+    }
+}
