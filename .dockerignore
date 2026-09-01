@@ -5,3 +5,7 @@ data/
 .git/
 .gitignore
 README.md
+
+.pytest_cache/
+.private/
+.vscode/
