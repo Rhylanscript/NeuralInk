@@ -9,8 +9,6 @@ __pycache__/
 # project data & artifacts
 data/*
 !data/.gitkeep
-weights/*.npz
-!weights/.gitkeep
 
 # os slop & editor stuff
 .DS_STORE
