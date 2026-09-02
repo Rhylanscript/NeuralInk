@@ -53,7 +53,7 @@ docker compose down
 ## Quick start (no cloning required)
 
 ```bash
-docker run -p 5000:5000 ghcr.io/Rhylanscript/neuralink:latest
+docker run -p 5000:5000 ghcr.io/rhylanscript/neuralink:latest
 ```
 
 Then open `http://localhost:5000`.
