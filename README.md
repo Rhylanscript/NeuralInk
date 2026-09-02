@@ -16,7 +16,7 @@ Draw a digit, watch the network read it.
 
 Requires Python 3.11
 
-```powershell
+```bash
 # activate venv and install deps
 python -m venv venv
 venv\Scripts\Activate.ps1
@@ -38,7 +38,7 @@ Open `http://127.0.0.1:5000`.
 
 Requires Docker Desktop (shocker)
 
-```powershell
+```bash
 docker compose up --build
 ```
 
@@ -46,13 +46,21 @@ Open `http://localhost:5000`. Live-reload is enabled for `backend/`, `frontend/`
 
 To stop:
 
-```powershell
+```bash
 docker compose down
 ```
 
+## Quick start (no cloning required)
+
+```bash
+docker run -p 5000:5000 ghcr.io/<your-username>/neuralink:latest
+```
+
+Then open `http://localhost:5000`.
+
 ## Running tests
 
-```powershell
+```bash
 pip install -r requirements-dev.txt
 
 python -m pytest tests/ -v
@@ -62,7 +70,7 @@ Includes unit tests for activations, the networks forward pass, the training loo
 
 ## Training from scratch
 
-```powershell
+```bash
 python -m scripts.download_mnist    # downloads MNIST idx files into data/
 python -m model.train               # trains and saves weights/trained_weights.npz
 ```
